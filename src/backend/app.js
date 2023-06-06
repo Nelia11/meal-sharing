@@ -26,63 +26,58 @@ router.use("/meals", mealsRouter);
 // /future-meals: Respond with all meals in the future (relative to the when datetime)
 app.get("/future-meals", async (req, res) => {
   try {
-    const data = await knex.raw("SELECT `title`, `when` FROM `meal` WHERE `when` > now()");
-    res.status(200).json(data[0]);
+    const meals = await knex.raw("SELECT `title`, `when` FROM `meal` WHERE `when` > now()");
+    res.status(200).json(meals[0]);
   } catch (error) {
-    console.log(error);
-    res.status(500).json("500. Internal Server Error");
+    res.status(500).json("500. Internal Server Error: " + error);
   }
 });
 
 // /past-meals:	Respond with all meals in the past (relative to the when datetime)
 app.get("/past-meals", async(req, res) => {
   try {
-    const data = await knex.raw("SELECT `title`, `when` FROM `meal` WHERE `when` < now()");
-    res.status(200).json(data[0]);
+    const meals = await knex.raw("SELECT `title`, `when` FROM `meal` WHERE `when` < now()");
+    res.status(200).json(meals[0]);
   } catch (error) {
-    console.log(error);
-    res.status(500).json("500. Internal Server Error");
+    res.status(500).json("500. Internal Server Error: " + error);
   }
 });
 
 // /all-meals: Respond with all meals sorted by ID
 app.get("/all-meals", async(req, res) => {
   try {
-    const data = await knex.raw("SELECT `id`, `title` FROM `meal` ORDER BY `id` ASC");
-    res.status(200).json(data[0]);
+    const meals = await knex.raw("SELECT `id`, `title` FROM `meal` ORDER BY `id` ASC");
+    res.status(200).json(meals[0]);
   } catch (error) {
-    console.log(error);
-    res.status(500).json("500. Internal Server Error");
+    res.status(500).json("500. Internal Server Error: " + error);
   }
 });
 
 // /first-meal:	Respond with the first meal (meaning with the minimum id)
 app.get("/first-meal", async(req, res) => {
   try {
-    const data = await knex.raw("SELECT `id`, `title` FROM `meal` ORDER BY `id` LIMIT 1");
+    const meal = await knex.raw("SELECT `id`, `title` FROM `meal` ORDER BY `id` ASC LIMIT 1");
     
-    data[0].length === 0 
-    ? res.status(404).json("404. The requested URL was not found.")
-    : res.status(200).json(data[0][0]);
+    meal[0].length === 0 
+    ? res.status(404).json("404. Meal not found.")
+    : res.status(200).json(meal[0][0]);
   } catch (error) {
-    console.log(error);
-    res.status(500).json("500. Internal Server Error");
+    res.status(500).json("500. Internal Server Error: " + error);
   }
 });
 
-// /last-meal:	Respond with the last meal (meaning with the maximum id)
+// /last-meal: Respond with the last meal (meaning with the maximum id)
 app.get("/last-meal", async(req, res) => {
   try {
-    const data = await knex.raw("SELECT `id`, `title` FROM `meal` ORDER BY `id` DESC LIMIT 1");
+    const meal = await knex.raw("SELECT `id`, `title` FROM `meal` ORDER BY `id` DESC LIMIT 1");
     
-    data[0].length === 0
-    ? res.status(404).json("404. The requested URL was not found.")
-    : res.status(200).json(data[0][0]);
+    meal[0].length === 0
+    ? res.status(404).json("404. Meal not found.")
+    : res.status(200).json(meal[0][0]);
   } catch (error) {
-    console.log(error);
-    res.status(500).json("500. Internal Server Error");
+    res.status(500).json("500. Internal Server Error: " + error);
   }
-})
+});
 
 if (process.env.API_PATH) {
   app.use(process.env.API_PATH, router);
