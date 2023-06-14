@@ -17,9 +17,18 @@ const addMeal = async (req, res) => {
       const meal = req.body;
       const id = meal.id;
   
+      const requiredFields = [
+        "id", 
+        "title", 
+        "description", 
+        "location", 
+        "when", 
+        "max_reservations", 
+        "price", 
+        "created_date"
+      ];
+
       const mealExists = await knex("meal").where({id}).select(1).first();
-  
-      const requiredFields = ["id", "title", "description", "location", "when", "max_reservations", "price", "created_date"];
       const missingMandatoryField = requiredFields.some((field)=> !req.body[field]);
   
       if (mealExists) {
