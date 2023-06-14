@@ -21,10 +21,8 @@ const getAll = async (req, res) => {
 const addReservation = async (req, res) => {
     try {
         const reservation = req.body;
-        const id = reservation.id; 
 
         const requiredFields = [ 
-            "id", 
             "number_of_guests", 
             "meal_id", 
             "created_date", 
@@ -34,20 +32,15 @@ const addReservation = async (req, res) => {
         ];
 
         const reqNumber = [
-            "id", 
             "number_of_guests", 
             "meal_id", 
             "contact_phonenumber"
         ];
 
-        const reservationExist = await knex("reservation").where({id}).select(1).first();
         const missingMandatoryField = requiredFields.some((field)=> !req.body[field]);
         const notNumber = reqNumber.some((field) => isNaN(reservation[field]));
 
-        if (reservationExist) {
-            res.status(400).json({"error": "Reservation already exsists."});
-            return;
-        } else if (missingMandatoryField) {
+        if (missingMandatoryField) {
             res.status(400).json({"error": "Incomplite reservation data"});
             return;
         } else if (notNumber) {

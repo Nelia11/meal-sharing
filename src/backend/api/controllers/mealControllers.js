@@ -15,10 +15,8 @@ const getAll = async (req, res) => {
 const addMeal = async (req, res) => {
     try {
       const meal = req.body;
-      const id = meal.id;
   
       const requiredFields = [
-        "id", 
         "title", 
         "description", 
         "location", 
@@ -28,13 +26,9 @@ const addMeal = async (req, res) => {
         "created_date"
       ];
 
-      const mealExists = await knex("meal").where({id}).select(1).first();
       const missingMandatoryField = requiredFields.some((field)=> !req.body[field]);
   
-      if (mealExists) {
-        res.status(400).json({"error": "Meal already exsists."});
-        return;
-      } else if (missingMandatoryField) {
+      if (missingMandatoryField) {
         res.status(400).json({"error": "Incomplite meal data"});
         return;
       } else if (isNaN(meal.price) || meal.price <= 0) {
