@@ -1,12 +1,113 @@
 const knex = require("../../database");
+const { 
+        filterByReservations, 
+        filterByMaxPrice, 
+        filterByTitle, 
+        limitSearch,
+        sortByKey,
+        sortDir,
+      } = require("../parameters/queryParams");
 
 const getAll = async (req, res) => {
+    let query = knex("meal").select(
+      "meal.id", 
+      "title",
+      `description`,
+      `location`,
+      `when`,
+      `max_reservations`,
+      `price`,
+      `meal.created_date`
+    );
+
+    if ("maxPrice" in req.query) {
+      const maxPrice = req.query.maxPrice;
+      if (!maxPrice || isNaN(maxPrice)) {
+        return res.status(200).json({"error": "Price is not defined or invalid"});
+      }
+      query = filterByMaxPrice(maxPrice, query);
+    };
+
+    if ("availableReservations" in req.query) {
+      const availableReservations = req.query.availableReservations.toLowerCase();
+      if (!availableReservations) {
+        return res.status(400).json({"error": "Type of reservation is not defined"});
+      } else if (availableReservations !== "true" && availableReservations !== "false") {
+        return res.status(400).json({"error": "Invalid type of reservation"});
+      }
+      query = filterByReservations(availableReservations, query);
+    };
+
+    if("title" in req.query) {
+      const matchingTitle = req.query.title;
+      if (!matchingTitle) {
+        return res.status(400).json({"error": "Title is not defined"});
+      }
+      query = filterByTitle(matchingTitle, query);
+    };
+
+    if("dateAfter" in req.query) {
+      const date = req.query.dateAfter;
+      const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+      if(!date || (!datePattern.test(date)) ) {
+        return res.status(400).json({"error": "Date is not defined or invalid"});
+      }
+      query = query.where(`when`, ">", date);
+    };
+    
+    if("dateBefore" in req.query) {
+      const date = req.query.dateBefore;
+      const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+      if(!date || (!datePattern.test(date)) ) {
+        return res.status(400).json({"error": "Date is not defined or invalid"});
+      }
+      query = query.where(`when`, "<", date);
+    };
+
+    if("limit" in req.query) {
+      const limitNumber = req.query.limit;
+      if(!limitNumber) {
+        return res.status(400).json({"error": "Limit is not defined"});
+      } else if(isNaN(limitNumber)) {
+        return res.status(400).json({"error": "Invalid limit"});
+      }
+      query = limitSearch(limitNumber, query);
+    };
+
+    if("sortDir" in req.query) {
+      const direction = req.query.sortDir.toLowerCase();
+      const sortingKey = req.query.sortKey;
+      if (!sortingKey) {
+        return res.status(400).json({"error": "Sorting key is not defined"});
+      } else {
+        sortingKey.toLowerCase();
+      }
+
+      if (!direction) {
+        return res.status(400).json({"error": "Sorting direction is not defined"});
+      } else if (sortingKey !== "when" && sortingKey !== "max_reservations" && sortingKey !== "price") {
+        return res.status(400).json({"error": "Invalid sorting key"});
+      } else if (direction !== "asc" && direction !== "desc") {
+        return res.status(400).json({"error": "Invalid sorting direction"});
+      }
+      query = sortDir(sortingKey, direction, query);
+    };
+
+    if("sortKey" in req.query) {
+      const sortingKey = req.query.sortKey.toLowerCase();
+      if (!sortingKey) {
+        return res.status(400).json({"error": "Sorting key is not defined"});
+      } else if (sortingKey !== "when" && sortingKey !== "max_reservations" && sortingKey !== "price") {
+        return res.status(400).json({"error": "Invalid sorting key"});
+      }
+      query = sortByKey(sortingKey, query);
+    };
+    
     try {
-      const meals = await knex("meal").select("id", "title");
-  
-      meals.length === 0
-      ? res.status(404).json({"error": "Meal not found"})
-      : res.status(200).json(meals);
+      const meals = await query;
+        meals.length === 0 
+        ? res.status(404).json({"error": "Meal not found"})
+        : res.status(200).json(meals);
     } catch (error) {
       res.status(500).json(error);
     }
