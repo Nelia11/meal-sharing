@@ -14,8 +14,8 @@ const getAllReviews = async (req, res) => {
         );
 
         reviews.length === 0
-        ? res.status(404).json({"error": "Reviews not found"})
-        : res.status(400).json(reviews);
+        ? res.status(404).json(reviews)
+        : res.status(200).json(reviews);
     } catch (error) {
         res.status(500).json(error);
     }
@@ -24,7 +24,15 @@ const getAllReviews = async (req, res) => {
 const getMealReviews = async (req, res) => {
     try {
         const id = req.params.meal_id;
+        const mealExists = await knex("meal").where({id}).select(1).first();
+        if (!mealExists) {
+            return res.status(200).json({"error": "Meal not found"});
+        }
 
+        const reviewExists = await knex("review").where({id}).select(1).first();
+        if (!reviewExists) {
+            return res.status(200).json({"error": "Review not found"});
+        }
         const rows = await knex
         .from("review")
         .select(
@@ -39,8 +47,8 @@ const getMealReviews = async (req, res) => {
         .where({"meal_id" : id});
 
         const reviews = {
-            meal: rows.length > 0 ? rows[0].meal : "Meal not found",
-            location: rows.length > 0 ? rows[0].location : "Location not found",
+            meal: rows[0].meal,
+            location: rows[0].location,
             reviews: rows.map((row) => ({
                 title: row.title,
                 description: row.description,
