@@ -1,0 +1,28 @@
+.row-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px black dashed;
+    transition: all 0.3s ease;
+}
+
+.row-wrap div {
+    margin: 5px 10px;
+}
+
+.row-wrap:hover {
+    transform: scale(1.05);
+}
+
+.title {
+    flex: 1;
+}
+
+.description {
+    flex: 2;
+}
+
+.price {
+    flex: 0.2;
+    text-align: right;
+}
