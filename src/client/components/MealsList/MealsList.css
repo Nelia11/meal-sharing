@@ -1,0 +1,36 @@
+h2 {
+    text-align: center;
+}
+
+.list-title {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    font-weight: bold;
+    font-style: italic;
+    padding: 15px;
+}
+
+.list-title div {
+    margin: 0 10px;
+}
+
+.my-loader {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.list-table {
+    border-radius: 10px;
+    background: #FFE4B5;
+    box-shadow: 41px 41px 82px #d9c29a,
+            -41px -41px 82px  #ffffd0;
+    padding: 15px;
+}
