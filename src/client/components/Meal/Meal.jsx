@@ -1,7 +1,7 @@
 import React from "react";
-import "./MealRow.css"
+import "./Meal.css"
 
-const MealRow = ({title, description, price}) => {
+const Meal = ({title, description, price}) => {
     return (
         <div className="row-wrap">
             <div className="title">{title}</div>
@@ -11,4 +11,4 @@ const MealRow = ({title, description, price}) => {
     );
 };
 
-export default MealRow;
+export default Meal;

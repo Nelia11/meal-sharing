@@ -5,9 +5,9 @@ import MealsList from "./components/MealsList/MealsList";
 function App() {
   return (
     <Router>
-      <Route>
-        <Route path="/all-meals" component={MealsList} />
-      </Route>
+      <Switch>
+        <Route path="/meals" component={MealsList} />
+      </Switch>
     </Router>
   );
 }
