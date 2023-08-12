@@ -1,13 +1,45 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { 
+  BrowserRouter as Router, 
+  Route, 
+  Switch
+} from "react-router-dom";
+
 import MealsList from "./components/MealsList/MealsList";
+import Home from "./components/Home/Home";
+import Nav from "./components/Nav/Nav";
+import MealInfo from "./components/MealInfo/MealInfo";
+import ReviewInfo from "./components/ReviewInfo/ReviewInfo";
+import FormReview from "./components/FormReview/FormReview";
 
 function App() {
   return (
     <Router>
+      <Nav />
+
       <Switch>
-        <Route path="/meals" component={MealsList} />
+        <Route exact path="/">
+          <Home />
+        </Route>
+
+        <Route exact path="/meals" >
+          <MealsList />
+        </Route>
+
+
+        <Route exact path="/meals/:id" >
+          <MealInfo />
+        </Route>
+
+        <Route exact path="/meals/:id/reviews">
+          <ReviewInfo />
+        </Route>
+
+        <Route exact path="/meals/:id/reviews/add-review">
+          <FormReview />
+        </Route>
       </Switch>
+
     </Router>
   );
 }
