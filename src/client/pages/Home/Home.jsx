@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "./Home.css"
-import Meal from '../Meal/Meal';
+import Meal from '../../components/Meal/Meal';
 import { Link } from "react-router-dom";
 
 const Home = () => {
     const API = "/api/meals";
-
     const [meals, setMeals] = useState([]);
 
     const fetchMeals = async (url) => {
@@ -42,12 +41,14 @@ const Home = () => {
             <div className="list-table">
                 {meals.map((meal) =>
                     (<div key={meal.id}>
-                        <Meal
-                            title={meal.title}
-                            description={meal.description}
-                            price={meal.price}
-                            src={meal.src}
-                        />
+                        <Link to={`/meals/${meal.id}`}>
+                            <Meal
+                                title={meal.title}
+                                description={meal.description}
+                                price={meal.price}
+                                src={meal.src}
+                            />
+                        </Link>
                     </div>)
                 )}
             </div>

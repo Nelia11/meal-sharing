@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Meal from '../Meal/Meal';
-import Loader from '../UI/Loader/Loader';
-import FormReservation from '../FormReservation/FormReservation';
+import Meal from '../../components/Meal/Meal';
+import Loader from '../../components/UI/Loader/Loader';
+import FormReservation from '../../components/FormReservation/FormReservation';
 import "./MealInfo.css";
 
 const MealInfo = () => {
@@ -50,9 +50,7 @@ const MealInfo = () => {
     }, [id]);
 
     return (
-
         <div className="meal-info">
-
             {isLoading ? (
                 <Loader />
             ) : error ? (
@@ -73,7 +71,7 @@ const MealInfo = () => {
 
                     {avaliableReservation > 0 ? (
                         <FormReservation id={id}/> 
-                    ) : "Sold out!" }
+                    ) : <div className="sold-out">Sold out!</div>}
 
                 </>
             )

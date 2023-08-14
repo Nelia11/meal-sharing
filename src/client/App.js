@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 
 import MealsList from "./components/MealsList/MealsList";
-import Home from "./components/Home/Home";
+import Home from "./pages/Home/Home";
 import Nav from "./components/Nav/Nav";
-import MealInfo from "./components/MealInfo/MealInfo";
-import ReviewInfo from "./components/ReviewInfo/ReviewInfo";
+import MealInfo from "./pages/MealInfo/MealInfo";
+import ReviewInfo from "./pages/ReviewInfo/ReviewInfo";
 import FormReview from "./components/FormReview/FormReview";
 
 function App() {

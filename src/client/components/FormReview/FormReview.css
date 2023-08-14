@@ -14,23 +14,20 @@
     padding-left: 2.8em;
     padding-right: 2.8em;
     padding-bottom: 2.1em;
-    border: 2px dashed #aa5898;
+    border: 2px dashed #c9bccf;
     border-radius: 15px;
-    background-color: #c9bccf;
-    box-shadow: 0 0 0 4px #c9bccf, 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
-    transition: .4s ease-in-out;
+    background-color: #a26abd;
+    box-shadow: 0 0 0 4px #a26abd, 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
 }
 
 .form-review .input {
     outline: none;
     padding: 0.5em;
     border: 1px solid #9758a0;
-    color: #af79c0;
     width: 14em;
     height: 3em;
     border-radius: 10px;
     background-color: #d3d0d4;
-    text-align: center;
 }
 
 .form-review .textarea {

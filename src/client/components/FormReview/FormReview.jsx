@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import "./FormReview.css";
+import StarRating from '../StarRating.jsx/StarRating';
 
 const FormReview = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [stars, setStars] = useState(5);
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(0);
     const { id } = useParams();
 
     const currentDate = new Date();
@@ -20,8 +22,8 @@ const FormReview = () => {
         const reservationInfo = {
             title,
             description,
+            stars: rating,
             meal_id: id,
-            stars,
             created_date: formattedDate
         };
 
@@ -45,11 +47,17 @@ const FormReview = () => {
         } catch (err) {
             console.error(err);
         }
-
         setTitle(""),
         setDescription("");
-        setStars(5);
+        setRating(0);
+    }
 
+    const handleStarClick = (idx) => {
+        setRating(idx);
+    }
+
+    const handleStarHover = (arg) => {
+        setHover(arg);
     }
     return (
         <div className="form-review-layout">
@@ -73,13 +81,11 @@ const FormReview = () => {
                     cols="30"
                     required
                 />
-                <input 
-                    placeholder="Stars*" 
-                    className="input" 
-                    type="number" 
-                    value={stars}
-                    onChange={(e) => setStars(e.target.value)}
-                    required
+                <StarRating 
+                    rating={rating} 
+                    handleStarClick={handleStarClick}
+                    hover={hover}
+                    handleStarHover={handleStarHover}
                 />
                 <button className="add-review">Add review</button>
             </form>

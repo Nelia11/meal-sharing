@@ -28,3 +28,13 @@
     transform: translate(0.05em, 0.05em);
     box-shadow: 0.05em 0.05em;
 }
+
+.meal-add-review {
+    display: grid;
+    place-items: center;
+}
+
+.sold-out {
+    margin: 15px;
+    font-weight: bold;
+}

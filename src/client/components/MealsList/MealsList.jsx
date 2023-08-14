@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Meal from "../Meal/Meal";
 import Loader from "../UI/Loader/Loader";
 import "./MealsList.css";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const MealsList = () => {
     const API = "/api/meals";
@@ -48,12 +49,14 @@ const MealsList = () => {
                     <div className="list-table">
                         {meals.map((meal) =>
                             (<div key={meal.id}>
-                                <Meal
-                                    title={meal.title}
-                                    description={meal.description}
-                                    price={meal.price}
-                                    src={meal.src}
-                                />
+                                <Link to={`/meals/${meal.id}`}>
+                                    <Meal
+                                        title={meal.title}
+                                        description={meal.description}
+                                        price={meal.price}
+                                        src={meal.src}
+                                    />
+                                </Link>
                             </div>)
                         )}
                     </div>
