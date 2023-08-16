@@ -1,5 +1,4 @@
 const knex = require("../../database");
-const uuid = require('uuid');
 
 const getAllReviews = async (req, res) => {
     try {
@@ -37,6 +36,7 @@ const getMealReviews = async (req, res) => {
         const rows = await knex
         .from("review")
         .select(
+            "review.id",
             "review.title" , 
             "review.description", 
             "stars", 
@@ -51,7 +51,7 @@ const getMealReviews = async (req, res) => {
             meal: rows[0].meal,
             location: rows[0].location,
             reviews: rows.map((row) => ({
-                id: uuid.v4(),
+                id: row.id,
                 title: row.title,
                 description: row.description,
                 stars: row.stars,

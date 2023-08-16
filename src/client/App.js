@@ -5,7 +5,7 @@ import {
   Switch
 } from "react-router-dom";
 
-import MealsList from "./components/MealsList/MealsList";
+import MealsList from "./pages/MealsList/MealsList";
 import Home from "./pages/Home/Home";
 import Nav from "./components/Nav/Nav";
 import MealInfo from "./pages/MealInfo/MealInfo";
@@ -31,13 +31,11 @@ function App() {
           <MealInfo />
         </Route>
 
-        <Route exact path="/meals/:id/reviews">
+        <Route exact path="/meals/:id/reviews/add-review">
+          <FormReview />
           <ReviewInfo />
         </Route>
 
-        <Route exact path="/meals/:id/reviews/add-review">
-          <FormReview />
-        </Route>
       </Switch>
 
     </Router>

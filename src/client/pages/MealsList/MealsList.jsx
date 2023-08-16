@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from "react";
-import Meal from "../Meal/Meal";
-import Loader from "../UI/Loader/Loader";
+import Meal from "../../components/Meal/Meal";
+import Loader from "../../components/UI/Loader/Loader";
 import "./MealsList.css";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 
 const MealsList = () => {
     const API = "/api/meals";
 
     const [meals, setMeals] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [title, setTitle] = useState("");
+    const [sortKey, setSortKey] = useState("");
+    const [sortDir, setSortDir] = useState("asc");
 
     const fetchMeals = async (url) => {
         try {
@@ -23,8 +26,13 @@ const MealsList = () => {
     };
 
     useEffect(() => {
-        fetchMeals(API);
-    }, []);
+        let searchURL = title ? `${API}?title=${title}` : `${API}?`;
+        
+        if (sortKey && sortDir) {
+            searchURL += `&sortKey=${sortKey}&sortDir=${sortDir}`;
+        }
+        fetchMeals(searchURL);
+    }, [title, sortKey, sortDir]);
 
     return (
             <div className="container">
@@ -41,6 +49,31 @@ const MealsList = () => {
 
                 <div className="list">
                     <h2>Meals</h2>
+
+                    <div className="row-wrap">
+                        <input className="searchInput" 
+                            placeholder="Search"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+
+                        <div>
+                            <select onChange={(e) => setSortKey(e.target.value)}>
+                                <option value="">Sort by</option>
+                                <option value="when">Date</option>
+                                <option value="max_reservations">Max. reservations</option>
+                                <option value="price">Price</option>
+                            </select>
+
+                            <select onChange={(e) => setSortDir(e.target.value)}>
+                                <option value="">Sort Direction</option>
+                                <option value="asc">ASC</option>
+                                <option value="desc">DESC</option>
+                            </select>
+                        </div>
+
+                    </div>
+
 
                     {isLoading && (
                         <div className="my-loader"><Loader /></div>

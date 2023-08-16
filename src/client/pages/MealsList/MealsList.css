@@ -19,3 +19,18 @@ h2 {
 .top-wave {
     height: 250px;
 }
+
+.list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.searchInput {
+    margin: 1.5rem;
+}
+
+.row-wrap {
+    display: flex;
+    align-items: center;
+}

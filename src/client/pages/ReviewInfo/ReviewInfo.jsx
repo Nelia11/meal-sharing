@@ -34,7 +34,7 @@ const ReviewInfo = () => {
             {reviews ? 
             reviews.length > 0 && 
             reviews.map(review => 
-                <div key={review.posted} className="review-card">
+                <div key={review.id} className="review-card">
                     <div className="review-title">{review.title}</div>
                     <div>{review.description}</div>
                     <div>Score: {review.stars} / 5</div>

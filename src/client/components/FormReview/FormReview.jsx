@@ -17,8 +17,6 @@ const FormReview = () => {
     const formattedDate = `${year}-${month}-${day}`;
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-    
         const reservationInfo = {
             title,
             description,

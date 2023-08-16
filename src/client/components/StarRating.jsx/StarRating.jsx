@@ -11,7 +11,7 @@ const StarRating = ({ rating, handleStarClick, hover, handleStarHover }) => {
                     <button
                         type="button"
                         key={index}
-                        className={index <= (hover || rating) ? "on" : "off"}
+                        className={index <= ((rating && hover) || hover) ? "on" : "off"}
                         onClick={() => handleStarClick(index)}
                         onMouseEnter={() => handleStarHover(index)}
                         onMouseLeave={() => handleStarHover(rating)}
