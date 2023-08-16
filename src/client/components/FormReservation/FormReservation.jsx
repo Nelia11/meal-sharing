@@ -67,7 +67,7 @@ const FormReservation = ({id}) => {
                 <input 
                     placeholder="Email*" 
                     className="input" 
-                    type="text" 
+                    type="email" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -78,6 +78,8 @@ const FormReservation = ({id}) => {
                     type="text" 
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
+                    pattern="\d{0,10}"
+                    title="Please enter digits only (maximum 10)"
                     required
                 />
                 <input 

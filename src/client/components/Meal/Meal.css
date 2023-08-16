@@ -44,3 +44,9 @@ img {
     width: 300px;
     height: 200px;
 }
+
+@media screen and (max-width: 600px) {
+    .card-wrap {
+      grid-template-columns: 1fr;
+    }
+}

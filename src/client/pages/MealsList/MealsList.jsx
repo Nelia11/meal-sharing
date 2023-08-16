@@ -88,6 +88,7 @@ const MealsList = () => {
                                         description={meal.description}
                                         price={meal.price}
                                         src={meal.src}
+                                        max_reservations={meal.max_reservations}
                                     />
                                 </Link>
                             </div>)

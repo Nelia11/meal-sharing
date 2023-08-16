@@ -12,6 +12,7 @@ const Home = () => {
             const data = await fetch(url);
             const result = await data.json();
             const featuredMeals = result.slice(0, 2);
+            console.log(result)
             setMeals(featuredMeals);
         } catch (error) {
             console.error(error);
@@ -47,6 +48,7 @@ const Home = () => {
                                 description={meal.description}
                                 price={meal.price}
                                 src={meal.src}
+                                max_reservations={meal.max_reservations}
                             />
                         </Link>
                     </div>)

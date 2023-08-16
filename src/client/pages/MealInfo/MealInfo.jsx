@@ -11,7 +11,7 @@ const MealInfo = () => {
     const [meal, setMeal] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [avaliableReservation, setAvaliableReservation] = useState("");
+    const [avaliableReservations, setAvaliableReservations] = useState(0);
 
     const fetchMealById = async (id) => {
         try {
@@ -31,21 +31,21 @@ const MealInfo = () => {
         }
     };
 
-    const fetchAvaliableReservation = async (id) => {
+    const fetchAvaliableReservations = async (id) => {
         try {
             const API = `/api/meals/avaliable-reservations/${id}`;
             const data = await fetch(API);
             const result = await data.json();
             const { max_reservations, reservated } = result;
             const countAvaliable = max_reservations - reservated;
-            setAvaliableReservation(countAvaliable);
+            setAvaliableReservations(prev => prev + countAvaliable);
         } catch (error) {
             console.error(error);
         }
     }
 
     useEffect(() => {
-        fetchAvaliableReservation(id);
+        fetchAvaliableReservations(id);
         fetchMealById(id);
     }, [id]);
 
@@ -63,13 +63,15 @@ const MealInfo = () => {
                             description={meal.description}
                             price={meal.price}
                             src={meal.src}
+                            max_reservations={meal.max_reservations}
+                            avaliable_reservations={avaliableReservations}
                         />
                         <Link to={`/meals/${id}/reviews/add-review`}>
                             <button className="review-meal">Review meal</button>
                         </Link>
                     </div>
 
-                    {avaliableReservation > 0 ? (
+                    {avaliableReservations > 0 ? (
                         <FormReservation id={id}/> 
                     ) : <div className="sold-out">Sold out!</div>}
 

@@ -149,7 +149,13 @@ const getById = async (req, res) => {
     try {
       const id = req.params.id;
   
-      const meal = await knex("meal").select("title", "description", "price", "src").where({id});
+      const meal = await knex("meal").select(
+        "title", 
+        "description", 
+        "price", 
+        "max_reservations", 
+        "src"
+        ).where({id});
   
       meal.length === 0
       ? res.status(404).json({"error": "Meal not found"})
