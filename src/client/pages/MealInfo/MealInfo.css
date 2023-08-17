@@ -1,9 +1,8 @@
 .meal-info {
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    height: 80vh;
+    height: 90vh;
 }
 
 .review-meal {
@@ -29,12 +28,11 @@
     box-shadow: 0.05em 0.05em;
 }
 
-.meal-add-review {
-    display: grid;
-    place-items: center;
+.sold-out {
+    margin: 2rem;
+    font-weight: bold;
 }
 
-.sold-out {
-    margin: 15px;
-    font-weight: bold;
+.meal-reservartion {
+    margin: 25px;
 }

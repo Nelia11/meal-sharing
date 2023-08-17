@@ -71,9 +71,11 @@ const MealInfo = () => {
                         </Link>
                     </div>
 
-                    {avaliableReservations > 0 ? (
-                        <FormReservation id={id}/> 
-                    ) : <div className="sold-out">Sold out!</div>}
+                    <div className="meal-reservartion">
+                        {avaliableReservations > 0 ? (
+                            <FormReservation id={id}/> 
+                        ) : <div className="sold-out">Sold out!</div>}
+                    </div>
 
                 </>
             )
