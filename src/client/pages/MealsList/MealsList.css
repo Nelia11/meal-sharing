@@ -2,13 +2,6 @@ h2 {
     text-align: center;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-}
-
 .list-table {
     display: flex;
     flex-wrap: wrap;
@@ -16,14 +9,11 @@ h2 {
     justify-content: center;
 }
 
-.top-wave {
-    height: 250px;
-}
-
 .list {
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: space-around;
 }
 
 .searchInput {

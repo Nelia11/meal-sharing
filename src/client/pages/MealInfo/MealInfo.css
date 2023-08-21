@@ -2,7 +2,13 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    height: 90vh;
+}
+
+.meal-add-review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
 }
 
 .review-meal {
@@ -33,6 +39,6 @@
     font-weight: bold;
 }
 
-.meal-reservartion {
+.meal-reservation {
     margin: 25px;
 }

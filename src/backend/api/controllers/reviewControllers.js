@@ -26,12 +26,12 @@ const getMealReviews = async (req, res) => {
         const id = req.params.meal_id;
         const mealExists = await knex("meal").where({id}).select(1).first();
         if (!mealExists) {
-            return res.status(200).json({"error": "Meal not found"});
+            return res.status(404).json({"error": "Meal not found"});
         }
 
         const reviewExists = await knex("review").where({id}).select(1).first();
         if (!reviewExists) {
-            return res.status(200).json({"error": "Review not found"});
+            return res.status(200).json({"msg": "No reviews"});
         }
         const rows = await knex
         .from("review")

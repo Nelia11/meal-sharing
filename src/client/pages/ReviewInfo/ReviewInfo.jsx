@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import "./ReviewInfo.css";
+import FormReview from '../../components/FormReview/FormReview';
 
 const ReviewInfo = () => {
     const { id } = useParams();
@@ -14,9 +15,13 @@ const ReviewInfo = () => {
             const API = `/api/reviews/${id}/meal-reviews`;
             const data = await fetch(API);
             const result = await data.json();
-            setMeal(result.meal);
-            setReviews(result.reviews);
-            setError(result.error);
+            console.log(data.status)
+            if (data.status === 200) {
+                setMeal(result.meal);
+                setReviews(result.reviews);
+            } else {
+                setError(result.error);
+            }
         } catch (error) {
             console.error(error);
         }
@@ -31,6 +36,7 @@ const ReviewInfo = () => {
             { error ?
             <div className="error">{error}</div>
             : <div className="content"> <h3> {meal} </h3>
+            <FormReview />
             {reviews ? 
             reviews.length > 0 && 
             reviews.map(review => 
@@ -40,7 +46,7 @@ const ReviewInfo = () => {
                     <div>Score: {review.stars} / 5</div>
                 </div>
             )
-             : "Meal has no reviews"}
+             : "No reviews."}
             </div>
             }
         </div>

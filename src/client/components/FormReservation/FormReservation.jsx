@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "./FormReservation.css";
 
-const FormReservation = ({id}) => {
+const FormReservation = ({id, avaliableReservations}) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -14,8 +14,11 @@ const FormReservation = ({id}) => {
     const formattedDate = `${year}-${month}-${day}`;
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-    
+        if (numberOfGuests > avaliableReservations) {
+            alert(`Maximum number of guests is ${avaliableReservations}`);
+            return;
+        };
+
         const reservationInfo = {
             meal_id: id,
             contact_name: name,
@@ -83,7 +86,7 @@ const FormReservation = ({id}) => {
                     required
                 />
                 <input 
-                    placeholder="Number of guests*" 
+                    placeholder={`Max. ${avaliableReservations}`}
                     className="input" 
                     type="number" 
                     value={numberOfGuests}

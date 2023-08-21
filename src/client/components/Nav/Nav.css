@@ -1,7 +1,15 @@
 nav {
     display: flex;
-    justify-content: space-evenly;
-    padding: 10px;
-    margin: 1rem;
     font-weight: bolder;
+    font-size: 1.5rem;
+}
+
+nav div {
+    margin: 25px;
+}
+
+@media screen and (max-width: 550px){
+    nav {
+        font-size: medium;
+    }
 }

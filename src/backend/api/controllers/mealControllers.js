@@ -153,6 +153,7 @@ const getById = async (req, res) => {
         "title", 
         "description", 
         "price", 
+        "when",
         "max_reservations", 
         "src"
         ).where({id});

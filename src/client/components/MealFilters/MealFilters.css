@@ -1,0 +1,26 @@
+.searchInput, select{
+    padding: 10px;
+    width: 120px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 0 1px  gray;
+    font-size: 18px;
+    transition: width 0.3s;
+    font-family: monospace, sans-serif;
+}
+  
+.searchInput:focus {
+    outline: 1px dashed;
+    box-shadow: none;
+    width: 230px;
+}
+
+.dropdown-row-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+select {
+    margin: 0.5rem;
+}

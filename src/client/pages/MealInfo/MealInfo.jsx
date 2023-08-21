@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Meal from '../../components/Meal/Meal';
-import Loader from '../../components/UI/Loader/Loader';
+import Loader from '../../components/Loader/Loader';
 import FormReservation from '../../components/FormReservation/FormReservation';
 import "./MealInfo.css";
 
@@ -64,16 +64,17 @@ const MealInfo = () => {
                             price={meal.price}
                             src={meal.src}
                             max_reservations={meal.max_reservations}
+                            date={meal.when}
                             avaliable_reservations={avaliableReservations}
                         />
                         <Link to={`/meals/${id}/reviews/add-review`}>
-                            <button className="review-meal">Review meal</button>
+                            <button className="review-meal">Reviews</button>
                         </Link>
                     </div>
 
-                    <div className="meal-reservartion">
+                    <div className="meal-reservation">
                         {avaliableReservations > 0 ? (
-                            <FormReservation id={id}/> 
+                            <FormReservation id={id} avaliableReservations={avaliableReservations} /> 
                         ) : <div className="sold-out">Sold out!</div>}
                     </div>
 

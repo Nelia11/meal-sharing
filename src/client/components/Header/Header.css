@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header img {
+    height: 170px;
+    width: 170px;
+}
+
+@media screen and (max-width: 550px){
+    .header img {
+        height: 50px;
+        width: 50px;
+    }
+}

@@ -40,7 +40,7 @@ const FormReview = () => {
             if (res.ok) {
                 alert("Review added");
             } else {
-                alert("Review has not been added");
+                alert("Please add title, description and score");
             }
         } catch (err) {
             console.error(err);
@@ -84,6 +84,7 @@ const FormReview = () => {
                     handleStarClick={handleStarClick}
                     hover={hover}
                     handleStarHover={handleStarHover}
+                    required
                 />
                 <button className="add-review">Add review</button>
             </form>

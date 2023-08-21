@@ -7,17 +7,17 @@ import {
 
 import MealsList from "./pages/MealsList/MealsList";
 import Home from "./pages/Home/Home";
-import Nav from "./components/Nav/Nav";
+import Header from "./components/Header/Header";
 import MealInfo from "./pages/MealInfo/MealInfo";
 import ReviewInfo from "./pages/ReviewInfo/ReviewInfo";
-import FormReview from "./components/FormReview/FormReview";
 import About from "./pages/About/About";
 import Footer from "./Footer/Footer";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (
     <Router>
-      <Nav />
+      <Header />
 
       <Switch>
         <Route exact path="/">
@@ -37,8 +37,11 @@ function App() {
         </Route>
 
         <Route exact path="/meals/:id/reviews/add-review">
-          <FormReview />
           <ReviewInfo />
+        </Route>
+
+        <Route path="*">
+          <NotFound />
         </Route>
       </Switch>
 
