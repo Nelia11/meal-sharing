@@ -17,7 +17,8 @@ const getAll = async (req, res) => {
       `when`,
       `max_reservations`,
       `price`,
-      `meal.created_date`
+      `meal.created_date`,
+      `src`
     );
 
     if ("maxPrice" in req.query) {
@@ -148,7 +149,7 @@ const getById = async (req, res) => {
     try {
       const id = req.params.id;
   
-      const meal = await knex("meal").select("id", "title").where({id});
+      const meal = await knex("meal").select("title", "description", "price", "src").where({id});
   
       meal.length === 0
       ? res.status(404).json({"error": "Meal not found"})
@@ -200,10 +201,33 @@ const deleteById = async (req, res) => {
     }
 };
 
+const getAvaliableCountById = async(req, res) => {
+  try {
+    const id = req.params.id;
+
+    const mealExists = await knex("meal").where({id}).select(1).first();
+    const result = await knex(`meal`)
+    .select(`meal.id`, `title`, `max_reservations`)
+    .sum(`number_of_guests as reservated`)
+    .leftJoin(`reservation`, `meal.id`, `=`, `reservation.meal_id`)
+    .groupBy(`meal.id`)
+    .having(`meal.id`, `=`, `${id}`)
+    .first();
+
+    !mealExists 
+    ? res.status(404).json({"error": "Meal not found"})
+    : res.status(200).json(result);
+
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
 module.exports = {
     getAll,
     addMeal,
     getById,
     updateById,
-    deleteById
+    deleteById,
+    getAvaliableCountById
 }

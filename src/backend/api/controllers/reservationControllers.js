@@ -8,10 +8,12 @@ const getAll = async (req, res) => {
             "contact_name", 
             "number_of_guests", 
             "contact_phonenumber", 
-            "created_date");
+            "created_date",
+            "meal_id"
+        );
         
         reservations.length === 0
-        ? res.status(404).json({"error": "Reservation not found"})
+        ? res.status(404).json({"error": "Reservations not found"})
         : res.status(200).json(reservations);
     } catch (error) {
         res.status(500).json(error);
@@ -24,7 +26,6 @@ const addReservation = async (req, res) => {
 
         const requiredFields = [ 
             "number_of_guests", 
-            "meal_id", 
             "created_date", 
             "contact_phonenumber", 
             "contact_name",
@@ -33,7 +34,6 @@ const addReservation = async (req, res) => {
 
         const reqNumber = [
             "number_of_guests", 
-            "meal_id", 
             "contact_phonenumber"
         ];
 

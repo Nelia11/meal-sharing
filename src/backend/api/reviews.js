@@ -12,7 +12,7 @@ const {
 reviewsRouter.get("/", getAllReviews);
 
 // /api/meals/:meal_id/reviews	GET, Returns all reviews for a specific meal.
-reviewsRouter.get("/:meal_id/reviews", getMealReviews);
+reviewsRouter.get("/:meal_id/meal-reviews", getMealReviews);
 
 // /api/reviews	POST, Adds a new review to the database.
 reviewsRouter.post("/", addReview);
