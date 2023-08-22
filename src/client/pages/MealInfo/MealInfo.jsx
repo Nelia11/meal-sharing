@@ -19,7 +19,7 @@ const MealInfo = () => {
             const API = `/api/meals/${id}`;
             const data = await fetch(API);
             const result = await data.json();
-            if (data.status === 200) {
+            if (data.status === 200 && data.statusText === "OK") {
                 setMeal(...result);
             } else if (data.status === 404) {
                 setError(result.error);
@@ -77,7 +77,6 @@ const MealInfo = () => {
                             <FormReservation id={id} avaliableReservations={avaliableReservations} /> 
                         ) : <div className="sold-out">Sold out!</div>}
                     </div>
-
                 </>
             )
             }

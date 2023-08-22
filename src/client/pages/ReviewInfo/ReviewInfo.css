@@ -1,5 +1,6 @@
-.meal-reviews-layout {
+.meal-reviews-layout, .content {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -31,4 +32,8 @@
 
 h3 {
     text-align: center;
+}
+
+.no-reviews {
+    margin-top: 1rem;
 }

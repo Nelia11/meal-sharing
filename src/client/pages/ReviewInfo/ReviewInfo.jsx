@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import "./ReviewInfo.css";
 import FormReview from '../../components/FormReview/FormReview';
+import ReadOnlyStarRating from '../../components/ReadOnlyStarRating/ReadOnlyStarRating';
+import NotFound from '../NotFound/NotFound';
+import StarRatings from "react-star-ratings";
+const AvarageRating = StarRatings;
 
 const ReviewInfo = () => {
     const { id } = useParams();
 
     const [meal, setMeal] = useState("");
     const [reviews, setReviews] = useState([]);
+    const [avgRate, setAvgRate] = useState(0);
     const [error, setError] = useState(null);
 
     const getReviews = async (id) => { 
@@ -15,10 +20,11 @@ const ReviewInfo = () => {
             const API = `/api/reviews/${id}/meal-reviews`;
             const data = await fetch(API);
             const result = await data.json();
-            console.log(data.status)
-            if (data.status === 200) {
-                setMeal(result.meal);
-                setReviews(result.reviews);
+            if (data.status === 200 && data.statusText === "OK") {
+                const { title, meal, reviews, avgRate } = result;
+                setMeal(meal || title);
+                setReviews(reviews);
+                setAvgRate(avgRate);
             } else {
                 setError(result.error);
             }
@@ -34,8 +40,14 @@ const ReviewInfo = () => {
     return (
         <div className="meal-reviews-layout">
             { error ?
-            <div className="error">{error}</div>
-            : <div className="content"> <h3> {meal} </h3>
+            <NotFound />
+            : <div className="content"> 
+            <h3> {meal} </h3>
+            <AvarageRating 
+                starDimension="30px"
+                rating={avgRate}
+                starRatedColor={"rgb(218, 165, 32)"}
+            />
             <FormReview />
             {reviews ? 
             reviews.length > 0 && 
@@ -43,10 +55,13 @@ const ReviewInfo = () => {
                 <div key={review.id} className="review-card">
                     <div className="review-title">{review.title}</div>
                     <div>{review.description}</div>
-                    <div>Score: {review.stars} / 5</div>
+                    <div>{new Date(review.posted).toLocaleString()}</div>
+                    <ReadOnlyStarRating 
+                        rating={review.stars}
+                    />
                 </div>
             )
-             : "No reviews."}
+             : <div className="no-reviews">No reviews</div>}
             </div>
             }
         </div>
