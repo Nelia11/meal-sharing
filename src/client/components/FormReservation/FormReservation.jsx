@@ -49,7 +49,7 @@ const FormReservation = ({id, avaliableReservations}) => {
             console.error(err);
         }
 
-        setName(""),
+        setName("");
         setEmail("");
         setPhoneNumber("");
         setNumberOfGuests("");

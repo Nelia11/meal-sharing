@@ -22,6 +22,8 @@
 
 .photo {
     overflow: hidden;
+    display: grid;
+    place-items: center;
 }
 
 .card-wrap div {

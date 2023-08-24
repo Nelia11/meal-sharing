@@ -58,9 +58,9 @@ const MealsList = () => {
                                     title={meal.title}
                                     description={meal.description}
                                     price={meal.price}
-                                    src={meal.src}
                                     max_reservations={meal.max_reservations}
-                                    date={meal.when}
+                                    date={meal.when_date}
+                                    src={meal.src}
                                 />
                             </Link>
                         </div>

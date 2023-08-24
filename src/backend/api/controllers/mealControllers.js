@@ -12,13 +12,13 @@ const getAll = async (req, res) => {
     let query = knex("meal").select(
       "meal.id", 
       "title",
-      `description`,
-      `location`,
-      `when`,
-      `max_reservations`,
-      `price`,
-      `meal.created_date`,
-      `src`
+      "description",
+      "location",
+      "when_date",
+      "max_reservations",
+      "price",
+      "meal.created_date",
+      "src"
     );
 
     if ("maxPrice" in req.query) {
@@ -53,7 +53,7 @@ const getAll = async (req, res) => {
       if(!date || (!datePattern.test(date)) ) {
         return res.status(400).json({"error": "Date is not defined or invalid"});
       }
-      query = query.where(`when`, ">", date);
+      query = query.where("when_date", ">", date);
     };
     
     if("dateBefore" in req.query) {
@@ -62,7 +62,7 @@ const getAll = async (req, res) => {
       if(!date || (!datePattern.test(date)) ) {
         return res.status(400).json({"error": "Date is not defined or invalid"});
       }
-      query = query.where(`when`, "<", date);
+      query = query.where("when_date", "<", date);
     };
 
     if("limit" in req.query) {
@@ -86,7 +86,7 @@ const getAll = async (req, res) => {
 
       if (!direction) {
         return res.status(400).json({"error": "Sorting direction is not defined"});
-      } else if (sortingKey !== "when" && sortingKey !== "max_reservations" && sortingKey !== "price") {
+      } else if (sortingKey !== "when_date" && sortingKey !== "max_reservations" && sortingKey !== "price") {
         return res.status(400).json({"error": "Invalid sorting key"});
       } else if (direction !== "asc" && direction !== "desc") {
         return res.status(400).json({"error": "Invalid sorting direction"});
@@ -98,7 +98,7 @@ const getAll = async (req, res) => {
       const sortingKey = req.query.sortKey.toLowerCase();
       if (!sortingKey) {
         return res.status(400).json({"error": "Sorting key is not defined"});
-      } else if (sortingKey !== "when" && sortingKey !== "max_reservations" && sortingKey !== "price") {
+      } else if (sortingKey !== "when_date" && sortingKey !== "max_reservations" && sortingKey !== "price") {
         return res.status(400).json({"error": "Invalid sorting key"});
       }
       query = sortByKey(sortingKey, query);
@@ -122,7 +122,7 @@ const addMeal = async (req, res) => {
         "title", 
         "description", 
         "location", 
-        "when", 
+        "when_date", 
         "max_reservations", 
         "price", 
         "created_date"
@@ -153,9 +153,9 @@ const getById = async (req, res) => {
         "title", 
         "description", 
         "price", 
-        "when",
+        "when_date",
         "max_reservations", 
-        "src"
+        "src",
         ).where({id});
   
       meal.length === 0

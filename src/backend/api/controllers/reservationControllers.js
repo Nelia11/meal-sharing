@@ -29,22 +29,30 @@ const addReservation = async (req, res) => {
             "created_date", 
             "contact_phonenumber", 
             "contact_name",
-            "contact_email"
+            "contact_email",
+            "meal_id"
         ];
 
         const reqNumber = [
             "number_of_guests", 
-            "contact_phonenumber"
+            "contact_phonenumber",
+            "meal_id"
         ];
 
         const missingMandatoryField = requiredFields.some((field)=> !req.body[field]);
         const notNumber = reqNumber.some((field) => isNaN(reservation[field]));
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const invalidEmail = !emailPattern.test(reservation.contact_email);
 
         if (missingMandatoryField) {
             res.status(400).json({"error": "Incomplite reservation data"});
             return;
         } else if (notNumber) {
             res.status(400).json({"error": "Invalid type. Expected Number"});
+            return;
+        } else if (invalidEmail) {
+            res.status(400).json({"error": "Invalid email format"});
             return;
         } else {
             await knex("reservation").insert(reservation);
@@ -86,7 +94,7 @@ const updateById = async (req, res) => {
                 return;
               } else {
               await knex("reservation").where({id}).update(reservation);
-              res.status(200).json({"message": "Updated meal"});
+              res.status(200).json({"message": "Updated reservation"});
               }
             
         }

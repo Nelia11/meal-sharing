@@ -13,7 +13,7 @@ const MealFilters = ({title, onTitleChange, onSortKeyChange, onSortDirChange }) 
             <div className="dropdown-row-wrap">
                 <select onChange={(e) => onSortKeyChange(e.target.value)}>
                     <option value="">Sort by: </option>
-                    <option value="when">Date</option>
+                    <option value="when_date">Date</option>
                     <option value="max_reservations">Max. reservations</option>
                     <option value="price">Price</option>
                 </select>

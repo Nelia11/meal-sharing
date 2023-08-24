@@ -62,10 +62,10 @@ const MealInfo = () => {
                             title={meal.title}
                             description={meal.description}
                             price={meal.price}
-                            src={meal.src}
                             max_reservations={meal.max_reservations}
-                            date={meal.when}
+                            date={meal.when_date}
                             avaliable_reservations={avaliableReservations}
+                            src={meal.src}
                         />
                         <Link to={`/meals/${id}/reviews/add-review`}>
                             <button className="review-meal">Reviews</button>

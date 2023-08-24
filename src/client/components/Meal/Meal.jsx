@@ -27,7 +27,7 @@ const Meal = ({title, description, price, date, max_reservations, avaliable_rese
             </div>
 
             <div className="photo">
-                <img src={src} alt="dish"/>
+                <img src={src} alt="meal"/>
             </div>
         </div>
     );

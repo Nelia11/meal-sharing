@@ -5,7 +5,7 @@ import "./Header.css";
 const Header = () => {
     return (
         <div className="header">
-            <img src="src/client/assets/images/logo.png"/>
+            <img src="https://meal-sharing-photos.s3.eu-north-1.amazonaws.com/logo.png" alt="Logo"/>
             <Nav />
         </div>
     );

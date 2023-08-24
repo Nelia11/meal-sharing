@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import "./ReviewInfo.css";
 import FormReview from '../../components/FormReview/FormReview';
 import ReadOnlyStarRating from '../../components/ReadOnlyStarRating/ReadOnlyStarRating';
@@ -42,7 +42,7 @@ const ReviewInfo = () => {
             { error ?
             <NotFound />
             : <div className="content"> 
-            <h3> {meal} </h3>
+            <Link to={`/meals/${id}`}><h3> {meal} </h3></Link>
             <AvarageRating 
                 starDimension="30px"
                 rating={avgRate}

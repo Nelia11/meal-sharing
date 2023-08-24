@@ -32,8 +32,15 @@
 
 h3 {
     text-align: center;
+    transition: 0.3s ease-in-out;
 }
 
 .no-reviews {
     margin-top: 1rem;
+}
+
+.meal-reviews-layout h3:hover {
+    color: purple;
+    font-size: larger;
+    text-decoration: underline;
 }
