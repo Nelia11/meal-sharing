@@ -26,16 +26,26 @@ const getMealReviews = async (req, res) => {
         const id = req.params.meal_id;
         const mealExists = await knex("meal").where({id}).select(1).first();
         if (!mealExists) {
-            return res.status(200).json({"error": "Meal not found"});
+            return res.status(404).json({"error": "Meal not found"});
         }
 
-        const reviewExists = await knex("review").where({id}).select(1).first();
+        const reviewExists = await knex("review").where({ meal_id: id }).select(1).first();
         if (!reviewExists) {
-            return res.status(200).json({"error": "Review not found"});
+            const mealTitle = await knex("meal").where({id}).select("title")
+            return res.status(200).json({
+                "title": mealTitle[0].title,
+                "message": "No reviews"            
+            });
         }
+        const avg = await knex 
+            .from("review")
+            .avg(`stars as avgRate`)
+            .where({"meal_id" : id});
+            
         const rows = await knex
         .from("review")
         .select(
+            "review.id",
             "review.title" , 
             "review.description", 
             "stars", 
@@ -48,8 +58,10 @@ const getMealReviews = async (req, res) => {
 
         const reviews = {
             meal: rows[0].meal,
+            avgRate: Number(avg[0].avgRate),
             location: rows[0].location,
             reviews: rows.map((row) => ({
+                id: row.id,
                 title: row.title,
                 description: row.description,
                 stars: row.stars,

@@ -1,0 +1,16 @@
+.wave-container {
+    background: #FF597B;
+    color: #FFF;
+    text-align: center;
+    width: 100%;
+}
+
+.wave-container > p {
+    font-size: 2.5rem;
+    display: grid;
+    place-items: center;
+}
+
+svg {
+    display: block;
+}

@@ -1,0 +1,7 @@
+.display-stars .on {
+    color: rgb(218, 165, 32);
+}
+
+.display-stars .off {
+    color: #38273d;
+}

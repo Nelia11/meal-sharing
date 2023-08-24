@@ -5,41 +5,47 @@ import {
   Switch
 } from "react-router-dom";
 
-import MealsList from "./components/MealsList/MealsList";
-import Home from "./components/Home/Home";
-import Nav from "./components/Nav/Nav";
-import MealInfo from "./components/MealInfo/MealInfo";
-import ReviewInfo from "./components/ReviewInfo/ReviewInfo";
-import FormReview from "./components/FormReview/FormReview";
+import MealsList from "./pages/MealsList/MealsList";
+import Home from "./pages/Home/Home";
+import Header from "./components/Header/Header";
+import MealInfo from "./pages/MealInfo/MealInfo";
+import ReviewInfo from "./pages/ReviewInfo/ReviewInfo";
+import About from "./pages/About/About";
+import Footer from "./Footer/Footer";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (
     <Router>
-      <Nav />
+      <Header />
 
       <Switch>
         <Route exact path="/">
           <Home />
         </Route>
 
+        <Route exact path="/about">
+          <About />
+        </Route>
+
         <Route exact path="/meals" >
           <MealsList />
         </Route>
-
 
         <Route exact path="/meals/:id" >
           <MealInfo />
         </Route>
 
-        <Route exact path="/meals/:id/reviews">
+        <Route exact path="/meals/:id/reviews/add-review">
           <ReviewInfo />
         </Route>
 
-        <Route exact path="/meals/:id/reviews/add-review">
-          <FormReview />
+        <Route path="*">
+          <NotFound />
         </Route>
       </Switch>
 
+      <Footer />
     </Router>
   );
 }

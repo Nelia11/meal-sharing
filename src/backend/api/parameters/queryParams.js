@@ -7,25 +7,21 @@ const filterByMaxPrice = (price, query) => {
 const filterByReservations = (availableReservations, query) => {
     query = query
     .select(
-        "meal.id", 
-        "title", 
-        "max_reservations",
-        "price",
-        knex.raw("COUNT(number_of_guests) AS total_guests"),
-        knex.raw("meal.max_reservations - COUNT(number_of_guests) AS avaliable_reservation"))
+        knex.raw("COUNT(reservation.number_of_guests) AS total_guests"),
+        knex.raw("meal.max_reservations - COUNT(reservation.number_of_guests) AS available_reservation"))
     .leftJoin("reservation", {"meal.id": "reservation.meal_id"})
     .groupBy("meal.id");
 
     if (availableReservations === "true") {
-        query = query.having("avaliable_reservation", ">=", 1);
+        query = query.having(knex.raw("meal.max_reservations - COUNT(reservation.number_of_guests) >= 1"));
     } else if (availableReservations === "false") {
-        query = query.having("avaliable_reservation", "=", 0);
+        query = query.having(knex.raw("meal.max_reservations - COUNT(reservation.number_of_guests) = 0"));
     }
     return query;
 };
 
 const filterByTitle = (title, query) => {
-    return query.where("title", "like", `%${title}%`);
+    return query.where("title", "ILIKE", `%${title}%`);
 };
 
 const limitSearch = (limit, query) => {
@@ -33,8 +29,8 @@ const limitSearch = (limit, query) => {
 };
 
 const sortByKey = (key, query) => {
-    if (key === "when"){
-        query = query.orderBy("meal.when");
+    if (key === "when_date"){
+        query = query.orderBy("meal.when_date");
     } else if (key === "max_reservations") {
         query = query.orderBy("max_reservations");
     } else if (key === "price") {

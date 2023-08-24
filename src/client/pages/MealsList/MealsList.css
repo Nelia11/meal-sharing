@@ -1,0 +1,26 @@
+h2 {
+    text-align: center;
+}
+
+.list-table {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.searchInput {
+    margin: 1.5rem;
+}
+
+.row-wrap {
+    display: flex;
+    align-items: center;
+}

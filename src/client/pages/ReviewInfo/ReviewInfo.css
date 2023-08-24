@@ -1,5 +1,6 @@
-.meal-reviews-layout {
+.meal-reviews-layout, .content {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -12,7 +13,7 @@
     position: relative;
     border: 2px solid #c3c6ce;
     transition: 0.5s ease-out;
-    overflow: visible;
+    width: 90vw;
 }
 
 .review-card > * {
@@ -31,4 +32,15 @@
 
 h3 {
     text-align: center;
+    transition: 0.3s ease-in-out;
+}
+
+.no-reviews {
+    margin-top: 1rem;
+}
+
+.meal-reviews-layout h3:hover {
+    color: purple;
+    font-size: larger;
+    text-decoration: underline;
 }
