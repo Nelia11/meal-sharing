@@ -39,10 +39,10 @@ function App() {
         <Route exact path="/meals/:id/reviews/add-review">
           <ReviewInfo />
         </Route>
-/*
-        <Route path="*">
+
+        {/* <Route path="*">
           <NotFound />
-        </Route>*/
+        </Route> */}
       </Switch>
 
       <Footer />
