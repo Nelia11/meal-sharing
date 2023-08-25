@@ -59,4 +59,12 @@ module.exports = {
       safe: false,
     }),
   ],
+  performance: {
+    hints: "warning",
+    maxAssetSize: 1748576, // fix warning asset size limit
+    maxEntrypointSize: 1748576, // fix warning entrypoint size limit
+  },
+  stats: {
+    children: true, // fix warning in child compilations
+  },
 };
