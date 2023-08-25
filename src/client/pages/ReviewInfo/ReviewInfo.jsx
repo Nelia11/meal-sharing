@@ -20,7 +20,7 @@ const ReviewInfo = () => {
             const API = `/api/reviews/${id}/meal-reviews`;
             const data = await fetch(API);
             const result = await data.json();
-            if (data.status === 200 && data.statusText === "OK") {
+            if (data.status === 200) {
                 const { title, meal, reviews, avgRate } = result;
                 setMeal(meal || title);
                 setReviews(reviews);

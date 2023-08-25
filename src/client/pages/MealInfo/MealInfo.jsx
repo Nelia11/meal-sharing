@@ -19,7 +19,7 @@ const MealInfo = () => {
             const API = `/api/meals/${id}`;
             const data = await fetch(API);
             const result = await data.json();
-            if (data.status === 200 && data.statusText === "OK") {
+            if (data.status === 200) {
                 setMeal(...result);
             } else if (data.status === 404) {
                 setError(result.error);
