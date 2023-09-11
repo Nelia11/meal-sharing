@@ -11,7 +11,7 @@ import Header from "./components/Header/Header";
 import MealInfo from "./pages/MealInfo/MealInfo";
 import ReviewInfo from "./pages/ReviewInfo/ReviewInfo";
 import About from "./pages/About/About";
-import Footer from "./Footer/Footer";
+import Footer from "./components/Footer/Footer";
 import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
